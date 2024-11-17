@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html
+  xmlns:th="https://thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+>
+<head>
+    <meta http-equiv="Content-Type" content="text/html;charset=UTF-8">
+</head>
+<body>
+    <table>
+        <thead>
+            <tr>ID</tr>
+            <tr>Nome</tr>
+            <tr>Sigla</tr>
+            <tr>Ação</tr>
+        </thead>
+        <tbody th:each="estado: ${ListaEstados}">
+            <td th:text="${estado.id}"></td>
+            <td th:text="${estado.nome}"></td>
+            <td th:text="${estado.sigla}"></td>
+            
+        </tbody>
+    </table>
+</body>
