@@ -6,7 +6,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>3.3.5</version>
+		<version>3.3.6</version>
 		<relativePath /> <!-- lookup parent from repository -->
 	</parent>
 	<groupId>com.projeto</groupId>
@@ -47,8 +47,7 @@
 		</dependency>
 		<dependency>
 			<groupId>org.projectlombok</groupId>
-			<artifactId>lombok</artifactId>
-			<version>1.18.28</version> <!-- Confirme a versão mais recente -->
+			<artifactId>lombok</artifactId> <!-- Confirme a versão mais recente -->
 			<scope>provided</scope>
 		</dependency>
 		<!-- <dependency>
