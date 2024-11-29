@@ -52,8 +52,7 @@
     <table class="table" id="tabela">
       <thead>
         <tr>
-          <td>ID</td>
-          <td>Nome</td>
+          <td>Estado</td>
           <td>Sigla</td>
           <td>Ação</td>
         </tr>
@@ -61,7 +60,6 @@
       <tbody>
         <!-- nome atribuido em "addObject"-->
         <tr th:each="estado: ${ListaEstados}">
-          <td th:text="${estado.id}"></td>
           <td th:text="${estado.nome}"></td>
           <td th:text="${estado.sigla}"></td>
           <td colspan="2">
