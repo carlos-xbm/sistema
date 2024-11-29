@@ -45,42 +45,55 @@
   <div class="container">
     <form action="/salvarFuncionario" th:object="${funcionario}" method="POST">
       <div class="form-group">
-        <!-- nome funcionario -->
-        <label for="nome">Nome do Funcionario:</label>
-        <input type="text" required class="form-control" id="nome" th:field="*{nome}" />
-        <!-- cpf da funcionario -->
-        <label for="cpf">CPF:</label>
-        <input type="text" required class="form-control" id="cpf" th:field="*{cpf}" />
-        <input type="hidden" th:field="*{cpf}" />
-        <!-- telefone do funcionario -->
-        <label for="telefone">Telefone:</label>
-        <input type="text" required class="form-control" id="telefone" th:field="*{telefone}" />
-        <input type="hidden" th:field="*{telefone}" />
-        <!-- endereco do funcuionario -->
-        <label for="endereco">Endereço:</label>
-        <input type="text" required class="form-control" id="endereco" th:field="*{endereco}" />
-        <input type="hidden" th:field="*{endereco}" />
-        <!-- numero do funcionario -->
-        <label for="numero">Numero:</label>
-        <input type="text" required class="form-control" id="numero" th:field="*{numero}" />
-        <input type="hidden" th:field="*{numero}" />
-        <!-- bairro do funcionario -->
-        <label for="bairro">Bairro:</label>
-        <input type="text" required class="form-control" id="bairro" th:field="*{bairro}" />
-        <input type="hidden" th:field="*{bairro}" />
-        <!-- email do funcionario -->
-        <label for="email">E-mail:</label>
-        <input type="text" required class="form-control" id="email" th:field="*{email}" />
-        <input type="hidden" th:field="*{email}" />
-        <!-- funcao do funcionario -->
-        <label for="funcao">Função:</label>
-        <input type="text" required class="form-control" id="funcao" th:field="*{funcao}" />
-        <input type="hidden" th:field="*{funcao}" />
-        <!-- selecionar cidade -->
-        <label for="">Cidade</label>
-        <select th:field="*{cidade}" required class="form-control">
-          <option th:each="cid:${ListaCidades}" th:value="${cid.id}" th:text="${cid.nome}"></option>
-        </select>
+        <div class="row">
+          <div class="col">
+            <!-- nome funcionario -->
+            <label for="nome">Nome do Funcionario:</label>
+            <input type="text" required class="form-control" id="nome" th:field="*{nome}" />
+          </div>
+          <div class="col">
+            <!-- cpf da funcionario -->
+            <label for="cpf">CPF:</label>
+            <input type="text" required class="form-control" id="cpf" th:field="*{cpf}" />
+          </div>
+          <div class="col"><!-- telefone do funcionario -->
+            <label for="telefone">Telefone:</label>
+            <input type="text" required class="form-control" id="telefone" th:field="*{telefone}" />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col"><!-- email do funcionario -->
+            <label for="email">E-mail:</label>
+            <input type="text" required class="form-control" id="email" th:field="*{email}" />
+          </div>
+          <div class="col"><!-- funcao do funcionario -->
+            <label for="funcao">Função:</label>
+            <input type="text" required class="form-control" id="funcao" th:field="*{funcao}" />
+          </div>
+        </div>
+        <div class="row">
+          <div class="col"><!-- endereco do funcuionario -->
+            <label for="endereco">Endereço:</label>
+            <input type="text" required class="form-control" id="endereco" th:field="*{endereco}" />
+          </div>
+          <div class="col"><!-- numero do funcionario -->
+            <label for="numero">Numero:</label>
+            <input type="text" required class="form-control" id="numero" th:field="*{numero}" />
+          </div>
+        </div>
+        <div class="row">
+
+          <div class="col"> <!-- bairro do funcionario -->
+            <label for="bairro">Bairro:</label>
+            <input type="text" required class="form-control" id="bairro" th:field="*{bairro}" />
+          </div>
+          <div class="col"><!-- selecionar cidade -->
+            <label for="">Cidade</label>
+            <select th:field="*{cidade}" required class="form-control">
+              <option th:each="cid:${ListaCidades}" th:value="${cid.id}" th:text="${cid.nome}"></option>
+            </select>
+          </div>
+        </div>
       </div>
       <!-- butao salvar -->
       <a href=""><button type="submit" class="btn btn-primary" href="/cadastroFuncionario"><i class="fa-solid fa-floppy-disk"></i>
@@ -101,14 +114,14 @@
   <!-- jquery mask -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery.mask/1.14.16/jquery.mask.min.js"></script>
   <script>
-    $(document).ready(function() {
+    $(document).ready(function () {
       $('#cpf').mask('000.000.000-00');
     });
-    $(document).ready(function() {
+    $(document).ready(function () {
       $('#telefone').mask('(00)0 0000-0000');
     });
   </script>
-  
+
 </body>
 
 </html>
