@@ -49,44 +49,47 @@
 
   <!-- Tabela -->
   <div class="container-fluid">
-    <table id="tabela" class="table table-striped table-bordered" style="width:100%">
-      <thead>
-        <tr>
-          <th>ID</th>
-          <th>Nome</th>
-          <th>CPF</th>
-          <th>Telefone</th>
-          <th>Endereço</th>
-          <th>Numero</th>
-          <th>Bairro</th>
-          <th>Cidade</th>
-          <th>Email</th>
-          <th>função</th>
-          <th>Ação</th>
-        </tr>
-      </thead>
-      <tbody>
-        <!-- nome atribuido em "addObject"-->
-        <tr th:each="funcionario: ${ListaFuncionarios}">
-          <td th:text="${funcionario.id}"></td>
-          <td th:text="${funcionario.nome}"></td>
-          <td th:text="${funcionario.cpf}"></td>
-          <td th:text="${funcionario.telefone}"></td>
-          <td th:text="${funcionario.endereco}"></td>
-          <td th:text="${funcionario.numero}"></td>
-          <td th:text="${funcionario.bairro}"></td>
-          <td th:text="${funcionario.cidade.nome}"></td>
-          <td th:text="${funcionario.email}"></td>
-          <td th:text="${funcionario.funcao}"></td>
-          <td colspan="2">
-            <!-- Icone editar -->
-            <a th:href="@{/editarFuncionario/{id} (id=${funcionario.id})}"><i class="fa-solid fa-pen-to-square fa-xl" style="color: #007bff;"></i></a>
-            <!-- Icone lixeira -->
-            <a th:href="@{/removerFuncionario/{id} (id=${funcionario.id})}"><i class="fa-solid fa-trash-can fa-xl" style="color: #ff0000;"></i></a>
-          </td>
-        </tr>
-      </tbody>
-    </table>
+    <div class="table-responsive">
+      <table id="tabela" class="table table-striped table-bordered display nowrap" style="width:100%">
+        <thead>
+          <tr>
+            <th>Nome</th>
+            <th>CPF</th>
+            <th>Telefone</th>
+            <th>Endereço</th>
+            <th>Numero</th>
+            <th>Bairro</th>
+            <th>Cidade</th>
+            <th>Email</th>
+            <th>função</th>
+            <th>Ação</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- nome atribuido em "addObject"-->
+          <tr th:each="funcionario: ${ListaFuncionarios}">
+            <td th:text="${funcionario.nome}"></td>
+            <td th:text="${funcionario.cpf}"></td>
+            <td th:text="${funcionario.telefone}"></td>
+            <td th:text="${funcionario.endereco}"></td>
+            <td th:text="${funcionario.numero}"></td>
+            <td th:text="${funcionario.bairro}"></td>
+            <td th:text="${funcionario.cidade.nome + ' - ' + funcionario.cidade.estado.sigla}"></td>
+            <td th:text="${funcionario.email}"></td>
+            <td th:text="${funcionario.funcao}"></td>
+            <td colspan="2">
+              <!-- Icone editar -->
+              <a th:href="@{/editarFuncionario/{id} (id=${funcionario.id})}"><i class="fa-solid fa-pen-to-square fa-xl" style="color: #007bff;"></i></a>
+              <!-- Icone lixeira -->
+              <a th:href="@{/removerFuncionario/{id} (id=${funcionario.id})}"><i class="fa-solid fa-trash-can fa-xl" style="color: #ff0000;"></i></a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  </div>
+  <div class="btn">
     <!-- botao voltar -->
     <a class="btn btn-danger" href="/administrativo"><i class="fa-solid fa-share"></i> Voltar </a>
     <!-- botao cadastrar -->
