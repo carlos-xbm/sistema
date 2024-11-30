@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<!-- thymeleaf usado para integrar o html Front End-->
+<html lang="pt-br" xmlns:th="https://thymeleaf.org" xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout">
+
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+  <title>XBM System</title>
+
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/css/bootstrap.min.css" integrity="sha384-xOolHFLEh07PJGoPkLv1IbcEPTNtaed2xpHsD9ESMhqIYd0nLMwNLD69Npy4HI+N" crossorigin="anonymous" />
+
+
+  <!-- Link de icones -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.1/css/all.min.css">
+  </link>
+
+  <!-- link Jquery tabela -->
+  <link rel="stylesheet" href="https://cdn.datatables.net/2.1.8/css/dataTables.dataTables.css" />
+  <link rel="stylesheet" href="/DataTables/datatables.css">
+  </link>
+</head>
+
+<body>
+
+  <!-- navbar -->
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="/administrativo"> XBM System </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="collapse navbar-collapse" id="navbarSupportedContent">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" href="#">Link</a>
+        </li>
+      </ul>
+      <form class="form-inline my-2 my-lg-0">
+        <input class="form-control mr-sm-2" type="search" placeholder="Search" aria-label="Search" />
+        <button class="btn btn-outline-success my-2 my-sm-0" type="submit"> Search </button>
+      </form>
+    </div>
+  </nav>
+
+  <!-- Tabela -->
+  <div class="container-fluid">
+    <div class="table-responsive">
+      <table id="tabela" class="table table-striped table-bordered display nowrap" style="width:100%">
+        <thead>
+          <tr>
+            <th>Obs</th>
+            <th>Valor Total</th>
+            <th>Quantidade Total</th>
+            <th>Data de Entrada</th>
+            <th>Fornecedor</th>
+            <th>Funcionario</th>
+            <th>Ação</th>
+          </tr>
+        </thead>
+        <tbody>
+          <!-- nome atribuido em "addObject"-->
+          <tr th:each="entradaProduto: ${ListaEntradaProdutos}">
+            <td th:text="${entradaProduto.obs}"></td>
+            <td th:text="${entradaProduto.valorTotal}"></td>
+            <td th:text="${entradaProduto.quantidadeTotal}"></td>
+            <td th:text="${entradaProduto.dataEntrada}"></td>
+            <td th:text="${entradaProduto.fornecedor.nome}"></td>
+            <td th:text="${entradaProduto.funcionario.nome}"></td>
+            <td colspan="2">
+              <!-- Icone editar -->
+              <a th:href="@{/editarEntradaProduto/{id} (id=${entradaProduto.id})}"><i class="fa-solid fa-pen-to-square fa-xl" style="color: #007bff;"></i></a>
+              <!-- Icone lixeira -->
+              <a th:href="@{/removerEntradaProduto/{id} (id=${entradaProduto.id})}"><i class="fa-solid fa-trash-can fa-xl" style="color: #ff0000;"></i></a>
+            </td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+  </div>
+  <div class="btn">
+    <!-- botao voltar -->
+    <a class="btn btn-danger" href="/administrativo"><i class="fa-solid fa-share"></i> Voltar </a>
+    <!-- botao cadastrar -->
+    <a href="/cadastroEntradaProduto"><button type="submit" class="btn btn-primary" href=""><i class="fa-regular fa-square-plus"></i> Cadastrar </button></a>
+  </div>
+
+  <!-- Option 1: jQuery and Bootstrap Bundle (includes Popper) -->
+  <script src="https://cdn.jsdelivr.net/npm/jquery@3.5.1/dist/jquery.slim.min.js" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
+  <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-Fy6S3B9q64WdZWQUiU+q4/2Lc9npb8tCaSX9FK7E8HnRr0Jz8D6OP9dO5Vg3Q9ct" crossorigin="anonymous"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.7.1/jquery.js"></script>
+
+  <!-- script - jquery talela -->
+  <script src="https://cdn.datatables.net/2.1.8/js/dataTables.js"></script>
+  <script>
+    $(document).ready(function () {
+      $('#tabela').DataTable();
+    });
+    var table = new DataTable('#tabela', {
+      language: {
+        url: '//cdn.datatables.net/plug-ins/2.1.8/i18n/pt-BR.json',
+      },
+    });
+  </script>
+</body>
+
+</html>
+
+</html>
