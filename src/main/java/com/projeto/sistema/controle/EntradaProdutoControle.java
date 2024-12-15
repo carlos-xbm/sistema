@@ -1,18 +1,21 @@
 package com.projeto.sistema.controle;
 
-import java.util.Optional;
+import java.util.ArrayList;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.BindingResult;
 
 import com.projeto.sistema.modelos.EntradaProduto;
+import com.projeto.sistema.modelos.ItemEntrada;
 import com.projeto.sistema.repositorios.EntradaProdutoRepositorio;
 import com.projeto.sistema.repositorios.FornecedorRepositorio;
 import com.projeto.sistema.repositorios.FuncionarioRepositorio;
+import com.projeto.sistema.repositorios.ItemEntradaRepositorio;
+import com.projeto.sistema.repositorios.ProdutoRepositorio;
 
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.bind.annotation.PostMapping;
 
@@ -24,14 +27,25 @@ public class EntradaProdutoControle {
     private FornecedorRepositorio fornecedorRepositorio;// lista de fornecedor
 
     @Autowired
+    private ItemEntradaRepositorio itemEntradaRepositorio;
+
+    @Autowired
+    private ProdutoRepositorio produtoRepositorio;
+    @Autowired
     private FuncionarioRepositorio funcionarioRepositorio;// lista de funcionario
 
+    private List<ItemEntrada> listaItemEntrada = new ArrayList<ItemEntrada>();
+
     @GetMapping("/cadastroEntradaProduto")
-    public ModelAndView cadastrar(EntradaProduto entradaProduto) {
+    public ModelAndView cadastrar(EntradaProduto entradaProduto, ItemEntrada itemEntrada) {
         ModelAndView mv = new ModelAndView("administrativo/entradaProduto/cadastro");
         mv.addObject("entradaProduto", entradaProduto);
         mv.addObject("ListaFornecedores", fornecedorRepositorio.findAll()); // lista de cidade
         mv.addObject("ListaFuncionarios", funcionarioRepositorio.findAll()); // lista de funcinario
+        mv.addObject("ListaItemEntradas", itemEntradaRepositorio.findAll()); // lista de itemEntrda
+        mv.addObject("ListaProdutos", produtoRepositorio.findAll()); // lista de produtos
+        mv.addObject("listaItemEntradas", this.listaItemEntrada);
+
         return mv;
     }
 
@@ -42,26 +56,28 @@ public class EntradaProdutoControle {
         return mv;
     }
 
-    @GetMapping("/editarEntradaProduto/{id}")
-    public ModelAndView editar(@PathVariable("id") Long id) {
-        Optional<EntradaProduto> entradaProduto = entradaProdutoRepositorio.findById(id);
-        return cadastrar(entradaProduto.get());
-    }
+    // @GetMapping("/editarEntradaProduto/{id}")
+    // public ModelAndView editar(@PathVariable("id") Long id) {
+    // Optional<EntradaProduto> entradaProduto =
+    // entradaProdutoRepositorio.findById(id);
+    // return cadastrar(entradaProduto.get());
+    // }
 
     @PostMapping("/salvarEntradaProduto")
-    public ModelAndView salvar(EntradaProduto entradaProduto, BindingResult result) {
+    public ModelAndView salvar(String acao, EntradaProduto entradaProduto, ItemEntrada itemEntrada, BindingResult result) {
         if (result.hasErrors()) {
-            return cadastrar(entradaProduto);
+            return cadastrar(entradaProduto, itemEntrada);
         }
         entradaProdutoRepositorio.saveAndFlush(entradaProduto);
-        return cadastrar(new EntradaProduto());
+        return cadastrar(new EntradaProduto(), new ItemEntrada());
     }
 
-    @GetMapping("/removerEntradaProduto/{id}")
-    public ModelAndView remover(@PathVariable("id") Long id) {
-        Optional<EntradaProduto> entradaProduto = entradaProdutoRepositorio.findById(id);
-        entradaProdutoRepositorio.delete(entradaProduto.get());
-        return listar();
-    }
+    // @GetMapping("/removerEntradaProduto/{id}")
+    // public ModelAndView remover(@PathVariable("id") Long id) {
+    // Optional<EntradaProduto> entradaProduto =
+    // entradaProdutoRepositorio.findById(id);
+    // entradaProdutoRepositorio.delete(entradaProduto.get());
+    // return listar();
+    // }
 
 }
