@@ -53,10 +53,10 @@
       <table id="tabela" class="table table-striped table-bordered display nowrap" style="width:100%">
         <thead>
           <tr>
-            <th>Obs</th>
-            <th>Valor Total</th>
-            <th>Quantidade Total</th>
-            <th>Data de Entrada</th>
+            <th>Produto</th>
+            <th>Quantidade</th>
+            <th>Valor Custo</th>
+            <th>Valor Venda</th>
             <th>Fornecedor</th>
             <th>Funcionario</th>
             <th>Ação</th>
@@ -64,18 +64,18 @@
         </thead>
         <tbody>
           <!-- nome atribuido em "addObject"-->
-          <tr th:each="entradaProduto: ${ListaEntradaProdutos}">
-            <td th:text="${entradaProduto.obs}"></td>
-            <td th:text="${entradaProduto.valorTotal}"></td>
-            <td th:text="${entradaProduto.quantidadeTotal}"></td>
-            <td th:text="${entradaProduto.dataEntrada}"></td>
-            <td th:text="${entradaProduto.fornecedor.nome}"></td>
-            <td th:text="${entradaProduto.funcionario.nome}"></td>
+          <tr th:each="itemEntrada: ${ListaItemEntradas}">
+            <td th:text="${itemEntrada.produto.nome}"></td>
+            <td th:text="${itemEntrada.quantidade}"></td>
+            <td th:text="${itemEntrada.valorCusto}"></td>
+            <td th:text="${itemEntrada.valorVenda}"></td>
+            <td th:text="${itemEntrada.fornecedor.nome}"></td>
+            <td th:text="${itemEntrada.funcionario.nome}"></td>
             <td colspan="2">
               <!-- Icone editar -->
-              <a th:href="@{/editarEntradaProduto/{id} (id=${entradaProduto.id})}"><i class="fa-solid fa-pen-to-square fa-xl" style="color: #007bff;"></i></a>
+              <a th:href="@{/editarItemEntrada/{id} (id=${itemEntrada.id})}"><i class="fa-solid fa-pen-to-square fa-xl" style="color: #007bff;"></i></a>
               <!-- Icone lixeira -->
-              <a th:href="@{/removerEntradaProduto/{id} (id=${entradaProduto.id})}"><i class="fa-solid fa-trash-can fa-xl" style="color: #ff0000;"></i></a>
+              <a th:href="@{/removerItemEntrada/{id} (id=${itemEntrada.id})}"><i class="fa-solid fa-trash-can fa-xl" style="color: #ff0000;"></i></a>
             </td>
           </tr>
         </tbody>
