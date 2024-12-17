@@ -2,6 +2,7 @@ package com.projeto.sistema.controle;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -9,6 +10,7 @@ import org.springframework.validation.BindingResult;
 
 import com.projeto.sistema.modelos.EntradaProduto;
 import com.projeto.sistema.modelos.ItemEntrada;
+import com.projeto.sistema.modelos.Produto;
 import com.projeto.sistema.repositorios.EntradaProdutoRepositorio;
 import com.projeto.sistema.repositorios.FornecedorRepositorio;
 import com.projeto.sistema.repositorios.FuncionarioRepositorio;
@@ -39,12 +41,12 @@ public class EntradaProdutoControle {
     @GetMapping("/cadastroEntradaProduto")
     public ModelAndView cadastrar(EntradaProduto entradaProduto, ItemEntrada itemEntrada) {
         ModelAndView mv = new ModelAndView("administrativo/entradaProduto/cadastro");
-        mv.addObject("entradaProduto", entradaProduto);
+        mv.addObject("EntradaProduto", entradaProduto);
         mv.addObject("ListaFornecedores", fornecedorRepositorio.findAll()); // lista de cidade
         mv.addObject("ListaFuncionarios", funcionarioRepositorio.findAll()); // lista de funcinario
         mv.addObject("ListaItemEntradas", itemEntradaRepositorio.findAll()); // lista de itemEntrda
         mv.addObject("ListaProdutos", produtoRepositorio.findAll()); // lista de produtos
-        mv.addObject("listaItemEntradas", this.listaItemEntrada);
+        mv.addObject("ListaItemEntradas", this.listaItemEntrada);
 
         return mv;
     }
@@ -68,8 +70,24 @@ public class EntradaProdutoControle {
         if (result.hasErrors()) {
             return cadastrar(entradaProduto, itemEntrada);
         }
+
+        if (acao.equals("itens")) {
+            this.listaItemEntrada.add(itemEntrada);
+        }else if (acao.equals("salvar")) {
+            entradaProdutoRepositorio.saveAndFlush(entradaProduto);
+
+            for(ItemEntrada it: listaItemEntrada ){
+                it.setEntradaProduto(itemEntrada);
+                itemEntradaRepositorio.saveAndFlush(itemEntrada);
+                Optional<Produto> prod = produtoRepositorio.findById(it.getProduto().getId());
+                Produto produto = prod.get();
+                produto.setEstoque(produto.getEstoque() + it.getQuantidade());
+                produto.getPrecoVenda();
+            }
+        }
         entradaProdutoRepositorio.saveAndFlush(entradaProduto);
         return cadastrar(new EntradaProduto(), new ItemEntrada());
+        
     }
 
     // @GetMapping("/removerEntradaProduto/{id}")
