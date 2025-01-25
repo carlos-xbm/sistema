@@ -1,7 +1,7 @@
 package com.projeto.sistema.modelos;
 
 import java.io.Serializable;
-import java.time.LocalDate;
+import java.util.Date;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
@@ -23,16 +23,16 @@ public class EntradaProduto implements Serializable {
     @GeneratedValue(strategy = GenerationType.AUTO)
     private Long id;
     private String obs;
-    private String valorTotal;
-    private String quantidadeTotal;
-    private LocalDate dataEntrada = LocalDate.now();
+    private Double valorTotal = 0.00;
+    private Double quantidadeTotal = 0.00;
+    private Date dataEntrada = new Date();
 
     @ManyToOne
     private Produto produto;
 
     @ManyToOne
     private ItemEntrada itemEntrada;
-    
+
     @ManyToOne
     private Fornecedor fornecedor;
 
